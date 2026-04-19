@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tendou Library | web baca komik dan novel legal</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #72baf4; 
+            --secondary: #8b5cf6; 
+            --text-main: #f1f5f9;
+            --text-dim: #94a3b8;
+            --border: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0; padding: 20px;
+        }
+
+        .container { max-width: 1200px; margin: auto; }
+
+        header {
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 15px; margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: flex-end;
+        }
+
+        header h1 { margin: 0; font-style: italic; text-transform: uppercase; text-shadow: 2px 2px var(--secondary); }
+
+        /* Form Styling */
+        .card {
+            background: var(--card-bg);
+            padding: 20px; border-radius: 12px;
+            border: 1px solid var(--border); margin-bottom: 30px;
+        }
+
+        label { display: block; font-size: 11px; color: var(--accent); font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+
+        input, select {
+            background: #0f172a; border: 1px solid var(--border);
+            color: white; padding: 10px; border-radius: 6px; width: 100%; box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white; border: none; padding: 12px; border-radius: 6px;
+            font-weight: bold; cursor: pointer; text-transform: uppercase;
+            width: 100%;
+        }
+
+        /* Grid System */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .book-card {
+            background: var(--card-bg); border-radius: 10px;
+            overflow: hidden; border: 1px solid var(--border);
+            transition: 0.3s; display: flex; flex-direction: column;
+        }
+
+        .book-card:hover { transform: translateY(-8px); border-color: var(--accent); }
+
+        .book-cover { width: 100%; height: 280px; background: #000; position: relative; }
+
+        .book-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+        .stok-tag {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(0,0,0,0.8); color: #fff;
+            padding: 2px 8px; border-radius: 4px; font-size: 11px;
+        }
+
+        .book-info { padding: 15px; flex-grow: 1; }
+
+        .book-title { font-weight: bold; font-size: 15px; margin-bottom: 5px; color: var(--text-main); }
+
+        .book-author { font-size: 13px; color: var(--accent); }
+
+        .badge {
+            font-size: 10px; background: rgba(139, 92, 246, 0.2);
+            color: var(--secondary); padding: 3px 7px; border-radius: 4px;
+            border: 1px solid var(--secondary); display: inline-block; margin-bottom: 10px;
+        }
+
+        .book-actions { display: flex; border-top: 1px solid var(--border); }
+
+        .book-actions button {
+            flex: 1; text-align: center; padding: 10px;
+            font-size: 12px; text-decoration: none; font-weight: bold;
+            background: transparent; border: none; cursor: pointer;
+        }
+
+        pre { background: #000; color: #10b981; padding: 15px; border-radius: 8px; font-size: 11px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>Tendou <span style="color:var(--accent)">LIBRARY</span></h1>
+            <p style="margin:0; color:var(--text-dim)">Tempat baca komik gratis dan legal (Static Demo)</p>
+        </div>
+        <div>
+            <input type="text" id="searchInput" onkeyup="searchBook()" placeholder="Cari judul..." style="width:200px; margin:0;">
+        </div>
+    </header>
+
+    <div class="card">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; align-items: end;">
+            <div><label>Kode</label><input type="text" placeholder="BK001"></div>
+            <div><label>Judul</label><input type="text" placeholder="Judul Buku"></div>
+            <div><label>Penulis</label><input type="text" placeholder="Nama Penulis"></div>
+            <div><label>Kategori</label>
+                <select>
+                    <option>Komik</option>
+                    <option>Novel</option>
+                    <option>Teknologi</option>
+                </select>
+            </div>
+            <div><label>Stok</label><input type="number" value="1"></div>
+            <div><label>Link Cover</label><input type="text" placeholder="https://..."></div>
+            <button type="button" class="btn" onclick="alert('Ini adalah demo statis. Fitur simpan memerlukan database PHP.')">Simpan</button>
+        </div>
+    </div>
+
+    <div class="book-grid" id="bookGrid">
+        <div class="book-card">
+            <div class="book-cover">
+                <div class="stok-tag">Stok: 12</div>
+                <img src="https://images.unsplash.com/photo-1543004629-141a045a4df0?w=400" alt="Cover">
+            </div>
+            <div class="book-info">
+                <div class="badge">Komik</div>
+                <div class="book-title">One Piece Vol. 100</div>
+                <div class="book-author">Eiichiro Oda</div>
+                <div style="font-size:10px; color:var(--text-dim); margin-top:5px;">ID: BK001</div>
+            </div>
+            <div class="book-actions">
+                <button style="color:orange; background:rgba(255,165,0,0.05)">EDIT</button>
+                <button onclick="removeBook(this)" style="color:red; background:rgba(255,0,0,0.05)">HAPUS</button>
+            </div>
+        </div>
+
+        <div class="book-card">
+            <div class="book-cover">
+                <div class="stok-tag">Stok: 5</div>
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400" alt="Cover">
+            </div>
+            <div class="book-info">
+                <div class="badge">Novel</div>
+                <div class="book-title">Laskar Pelangi</div>
+                <div class="book-author">Andrea Hirata</div>
+                <div style="font-size:10px; color:var(--text-dim); margin-top:5px;">ID: BK002</div>
+            </div>
+            <div class="book-actions">
+                <button style="color:orange; background:rgba(255,165,0,0.05)">EDIT</button>
+                <button onclick="removeBook(this)" style="color:red; background:rgba(255,0,0,0.05)">HAPUS</button>
+            </div>
+        </div>
+
+        <div class="book-card">
+            <div class="book-cover">
+                <div class="stok-tag">Stok: 8</div>
+                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400" alt="Cover">
+            </div>
+            <div class="book-info">
+                <div class="badge">Teknologi</div>
+                <div class="book-title">Mastering PHP</div>
+                <div class="book-author">Fadil Dev</div>
+                <div style="font-size:10px; color:var(--text-dim); margin-top:5px;">ID: BK003</div>
+            </div>
+            <div class="book-actions">
+                <button style="color:orange; background:rgba(255,165,0,0.05)">EDIT</button>
+                <button onclick="removeBook(this)" style="color:red; background:rgba(255,0,0,0.05)">HAPUS</button>
+            </div>
+        </div>
+    </div>
+
+    <h3 style="margin-top:50px; color:var(--text-dim)">API Data Demo</h3>
+    <pre id="jsonPreview"></pre>
+</div>
+
+<script>
+    // Preview JSON Statis
+    const dummyData = [
+        {id: 1, kode_buku: "BK001", judul: "One Piece Vol. 100", penulis: "Eiichiro Oda", kategori: "Komik", stok: 12},
+        {id: 2, kode_buku: "BK002", judul: "Laskar Pelangi", penulis: "Andrea Hirata", kategori: "Novel", stok: 5},
+        {id: 3, kode_buku: "BK003", judul: "Mastering PHP", penulis: "Fadil Dev", kategori: "Teknologi", stok: 8}
+    ];
+    document.getElementById('jsonPreview').innerText = JSON.stringify({library: "Tendou", count: 3, results: dummyData}, null, 4);
+
+    // Fungsi Hapus Visual
+    function removeBook(btn) {
+        if(confirm('Hapus buku ini dari tampilan demo?')) {
+            btn.closest('.book-card').remove();
+        }
+    }
+
+    // Fungsi Cari Visual
+    function searchBook() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.getElementsByClassName('book-card');
+        
+        for (let i = 0; i < cards.length; i++) {
+            let title = cards[i].querySelector('.book-title').innerText.toLowerCase();
+            if (title.includes(input)) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
